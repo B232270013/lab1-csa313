@@ -1,0 +1,245 @@
+--- codegen/login-generated.ts	2026-11-25 23:01:01.890622732 +0800
++++ tests/mytest.spec.ts	2026-11-25 22:47:05.615702282 +0800
+@@ -1,32 +1,212 @@
+ import { test, expect } from '@playwright/test';
+ 
+-test('test', async ({ page }) => {
+-  await page.goto('https://www.saucedemo.com/');
+-  await page.locator('div').nth(4).click();
+-  await page.locator('[data-test="username"]').click({
+-    clickCount: 3
+-  });
+-  await page.locator('[data-test="username"]').click({
+-    clickCount: 3
+-  });
+-  await page.locator('[data-test="username"]').click();
+-  await page.locator('[data-test="username"]').fill('standard_user');
+-  await page.locator('[data-test="password"]').click();
+-  await page.locator('[data-test="password"]').fill('secret_sauce');
+-  await page.locator('[data-test="password"]').press('Enter');
+-  await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
+-  await page.locator('[data-test="shopping-cart-link"]').click();
+-  await page.locator('[data-test="remove-sauce-labs-backpack"]').click();
+-  await page.getByText('Swag Labs').click();
+-  await page.getByText('Swag Labs').click();
+-  await page.getByRole('button', { name: 'Open Menu' }).click();
+-  await page.locator('[data-test="inventory-sidebar-link"]').click();
+-  await page.getByRole('button', { name: 'Open Menu' }).click();
+-  await page.locator('[data-test="logout-sidebar-link"]').click();
+-  await page.locator('[data-test="username"]').click();
+-  await page.locator('[data-test="username"]').fill('standard_user');
+-  await page.locator('[data-test="username"]').press('Enter');
+-  await page.locator('[data-test="password"]').click();
+-  await page.locator('[data-test="password"]').fill('secret_sauce');
+-  await page.locator('[data-test="password"]').press('Enter');
++// TC-01: Амжилттай нэвтрэх болон системээс гарах
++test('successful login', async ({ page }) => {
++
++    await test.step('Нэвтрэх хуудас нээх', async () => {
++        await page.goto('https://www.saucedemo.com/');
++
++        await expect(
++            page.getByPlaceholder('Username')
++        ).toBeVisible();
++    });
++
++    await test.step('Хэрэглэгчийн мэдээлэл оруулах', async () => {
++        await page.getByPlaceholder('Username')
++            .fill('standard_user');
++
++        await page.getByPlaceholder('Password')
++            .fill('secret_sauce');
++    });
++
++    await test.step('Нэвтрэх', async () => {
++        await page.getByRole('button', {
++            name: 'Login'
++        }).click();
++    });
++
++    await test.step('Нэвтрэлт амжилттай эсэхийг шалгах', async () => {
++        await expect(page)
++            .toHaveURL(/\/inventory\.html$/);
++
++        await expect(
++            page.getByText('Products', { exact: true })
++        ).toBeVisible();
++    });
++
++    await test.step('Үндсэн цэс нээх', async () => {
++        await page.locator('#react-burger-menu-btn')
++            .click();
++    });
++
++    await test.step('Системээс гарах', async () => {
++        const logout = page.locator('#logout_sidebar_link');
++
++        await expect(logout).toBeVisible();
++
++        await logout.click();
++    });
++
++    await test.step('Нэвтрэх хуудас руу буцсаныг шалгах', async () => {
++        await expect(page)
++            .toHaveURL('https://www.saucedemo.com/');
++
++        await expect(
++            page.getByPlaceholder('Username')
++        ).toBeVisible();
++
++        await expect(
++            page.getByRole('button', { name: 'Login' })
++        ).toBeVisible();
++    });
++    
++});
++// TC-02: Буруу нууц үгээр нэвтрэх сөрөг тест
++test('invalid login', async ({ page }) => {
++
++    await test.step('Нэвтрэх хуудас нээх', async () => {
++        await page.goto('https://www.saucedemo.com/');
++    });
++
++    await test.step('Буруу мэдээлэл оруулах', async () => {
++
++        await page.getByPlaceholder('Username')
++            .fill('standard_user');
++
++        await page.getByPlaceholder('Password')
++            .fill('wrong_password');
++    });
++
++    await test.step('Нэвтрэх оролдлого хийх', async () => {
++
++        await page.getByRole('button', {
++            name: 'Login'
++        }).click();
++    });
++
++    await test.step('Алдааны мессеж шалгах', async () => {
++
++        const error = page.locator('[data-test="error"]');
++
++        await expect(error).toBeVisible();
++
++        await expect(error).toHaveText(
++            'Epic sadface: Username and password do not match any user in this service'
++        );
++    });
++
++    await test.step('Нэвтрээгүй эсэхийг шалгах', async () => {
++
++        await expect(page)
++            .toHaveURL('https://www.saucedemo.com/');
++
++        await expect(
++            page.getByRole('button', { name: 'Login' })
++        ).toBeVisible();
++    });
++});
++// TC-03: Бараа сагслах, хасах болон системээс гарах
++test('add product to cart', async ({ page }) => {
++
++    await test.step('Системд нэвтрэх', async () => {
++        await page.goto('https://www.saucedemo.com/');
++
++        await page.getByPlaceholder('Username')
++            .fill('standard_user');
++
++        await page.getByPlaceholder('Password')
++            .fill('secret_sauce');
++
++        await page.getByRole('button', {
++            name: 'Login'
++        }).click();
++
++        await expect(page)
++            .toHaveURL(/\/inventory\.html$/);
++    });
++
++    await test.step('Бараа сонгох', async () => {
++        const product = page.locator('.inventory_item')
++            .filter({
++                has: page.getByText(
++                    'Sauce Labs Backpack',
++                    { exact: true }
++                )
++            });
++
++        await expect(product).toBeVisible();
++
++        await product.getByRole('button', {
++            name: 'Add to cart',
++            exact: true
++        }).click();
++    });
++
++    await test.step('Сагсны тоог шалгах', async () => {
++        await expect(
++            page.locator('.shopping_cart_badge')
++        ).toHaveText('1');
++    });
++
++    await test.step('Сагсны хуудас нээх', async () => {
++        await page.locator('.shopping_cart_link')
++            .click();
++
++        await expect(page)
++            .toHaveURL(/\/cart\.html$/);
++
++        await expect(
++            page.getByText('Your Cart', { exact: true })
++        ).toBeVisible();
++    });
++
++    await test.step('Сагсанд зөв бараа байгааг шалгах', async () => {
++        const cartItem = page.locator('.cart_item');
++
++        await expect(cartItem).toHaveCount(1);
++
++        await expect(
++            cartItem.getByText('Sauce Labs Backpack', {
++                exact: true
++            })
++        ).toBeVisible();
++
++        await expect(
++            cartItem.locator('.cart_quantity')
++        ).toHaveText('1');
++    });
++
++    await test.step('Барааг сагснаас хасах', async () => {
++        await page.getByRole('button', {
++            name: 'Remove',
++            exact: true
++        }).click();
++
++        await expect(
++            page.locator('.cart_item')
++        ).toHaveCount(0);
++
++        await expect(
++            page.locator('.shopping_cart_badge')
++        ).toHaveCount(0);
++    });
++
++    await test.step('Системээс гарах', async () => {
++        await page.locator('#react-burger-menu-btn')
++            .click();
++
++        const logout = page.locator(
++            '#logout_sidebar_link'
++        );
++
++        await expect(logout).toBeVisible();
++        await logout.click();
++
++        await expect(page)
++            .toHaveURL('https://www.saucedemo.com/');
++
++        await expect(
++            page.getByRole('button', { name: 'Login' })
++        ).toBeVisible();
++    });
+ });
+\ No newline at end of file
