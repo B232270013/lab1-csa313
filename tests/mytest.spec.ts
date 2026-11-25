@@ -59,4 +59,49 @@ test('successful login', async ({ page }) => {
             page.getByRole('button', { name: 'Login' })
         ).toBeVisible();
     });
+    
+});
+// TC-02: Буруу нууц үгээр нэвтрэх сөрөг тест
+test('invalid login', async ({ page }) => {
+
+    await test.step('Нэвтрэх хуудас нээх', async () => {
+        await page.goto('https://www.saucedemo.com/');
+    });
+
+    await test.step('Буруу мэдээлэл оруулах', async () => {
+
+        await page.getByPlaceholder('Username')
+            .fill('standard_user');
+
+        await page.getByPlaceholder('Password')
+            .fill('wrong_password');
+    });
+
+    await test.step('Нэвтрэх оролдлого хийх', async () => {
+
+        await page.getByRole('button', {
+            name: 'Login'
+        }).click();
+    });
+
+    await test.step('Алдааны мессеж шалгах', async () => {
+
+        const error = page.locator('[data-test="error"]');
+
+        await expect(error).toBeVisible();
+
+        await expect(error).toHaveText(
+            'Epic sadface: Username and password do not match any user in this service'
+        );
+    });
+
+    await test.step('Нэвтрээгүй эсэхийг шалгах', async () => {
+
+        await expect(page)
+            .toHaveURL('https://www.saucedemo.com/');
+
+        await expect(
+            page.getByRole('button', { name: 'Login' })
+        ).toBeVisible();
+    });
 });
