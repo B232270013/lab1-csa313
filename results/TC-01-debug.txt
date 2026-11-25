@@ -1,0 +1,37 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test tests/mytest.spec.ts --project=chromium --headed --reporter=list --trace on
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › tests/mytest.spec.ts:3:1 › successful login (20.0s)
+
+
+  1) [chromium] › tests/mytest.spec.ts:3:1 › successful login › Системээс гарах ────────────────────
+
+    Error: locator.click: Target page, context or browser has been closed
+    Call log:
+      - waiting for getByRole('link', { name: 'Logout', exact: true })
+
+
+      41 |             name: 'Logout',
+      42 |             exact: true
+    > 43 |         }).click();
+         |            ^
+      44 |     });
+      45 |
+      46 |     await test.step('Нэвтрэх хуудас руу буцсаныг шалгах', async () => {
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:43:12
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:39:5
+
+    Error Context: test-results/mytest-successful-login-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/mytest-successful-login-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/mytest-successful-login-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/mytest.spec.ts:3:1 › successful login ───────────────────────────────────────

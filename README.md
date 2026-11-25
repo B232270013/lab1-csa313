@@ -40,3 +40,51 @@ WebKit нь Arch Linux орчинд шаардлагатай
 болон Firefox хөтөч дээр ажиллуулахаар болсон.
 
 Анхны үр дүн: [example-test.txt](results/example-test.txt)
+
+## TC-01 — Амжилттай нэвтрэх болон гарах
+
+SauceDemo сайтад standard_user хэрэглэгчээр
+амжилттай нэвтрэх, Products хуудас руу шилжих,
+системээс гарах үйлдлийг автоматжуулсан.
+
+### Шалгалтууд
+
+- Нэвтрэх хуудас харагдах.
+- Зөв хэрэглэгчийн мэдээллээр нэвтрэх.
+- Inventory URL шалгах.
+- Products гарчиг харагдах.
+- Үндсэн цэс нээх.
+- Logout үйлдэл хийх.
+- Нэвтрэх хуудас руу буцах.
+
+### Илэрсэн асуудал ба засвар
+
+Анхны тест Logout элементийг getByRole('link')
+locator-аар олох үед 30 секундын timeout
+алдаагаар амжилтгүй болсон.
+
+Алдааны логийг шалгаж, test.step() ашиглан
+алдаа гарсан алхмыг тодорхойлсон.
+
+Logout элементийг #logout_sidebar_link
+CSS ID locator ашиглан олж, асуудлыг зассан.
+
+### Эцсийн үр дүн
+
+| Browser | Result | Duration |
+|---|---|---|
+| Chromium | Passed | 2.0s |
+| Firefox | Passed | 3.0s |
+
+Нийт: 2 passed, 0 failed.
+Нийт хугацаа: 4.1 секунд.
+
+### Нотолгоо
+
+- [Анхны алдаа](results/TC-01-failed.txt)
+- [Logout timeout](results/TC-01-logout-timeout.txt)
+- [Debug үр дүн](results/TC-01-debug.txt)
+- [Эцсийн үр дүн](results/TC-01-final.txt)
+- [Chromium trace](evidence/traces/TC-01-chromium.zip)
+- [Firefox trace](evidence/traces/TC-01-firefox.zip)
+- [HTML report screenshot](evidence/07-login-report.png)

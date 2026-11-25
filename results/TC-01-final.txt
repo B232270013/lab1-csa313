@@ -1,0 +1,13 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test tests/mytest.spec.ts --trace on
+
+Running 2 tests using 2 workers
+
+[1/2] [chromium] › tests/mytest.spec.ts:4:1 › successful login
+[2/2] [firefox] › tests/mytest.spec.ts:4:1 › successful login
+  2 passed (4.1s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m

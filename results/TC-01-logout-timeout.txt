@@ -1,0 +1,59 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test tests/mytest.spec.ts
+
+Running 2 tests using 2 workers
+
+[1/2] [firefox] › tests/mytest.spec.ts:3:1 › successful login
+[2/2] [chromium] › tests/mytest.spec.ts:3:1 › successful login
+  1) [chromium] › tests/mytest.spec.ts:3:1 › successful login › Системээс гарах ────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Logout', exact: true })
+
+
+      41 |             name: 'Logout',
+      42 |             exact: true
+    > 43 |         }).click();
+         |            ^
+      44 |     });
+      45 |
+      46 |     await test.step('Нэвтрэх хуудас руу буцсаныг шалгах', async () => {
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:43:12
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:39:5
+
+    Error Context: test-results/mytest-successful-login-chromium/error-context.md
+
+
+  2) [firefox] › tests/mytest.spec.ts:3:1 › successful login › Системээс гарах ─────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Logout', exact: true })
+
+
+      41 |             name: 'Logout',
+      42 |             exact: true
+    > 43 |         }).click();
+         |            ^
+      44 |     });
+      45 |
+      46 |     await test.step('Нэвтрэх хуудас руу буцсаныг шалгах', async () => {
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:43:12
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:39:5
+
+    Error Context: test-results/mytest-successful-login-firefox/error-context.md
+
+
+  2 failed
+    [chromium] › tests/mytest.spec.ts:3:1 › successful login ───────────────────────────────────────
+    [firefox] › tests/mytest.spec.ts:3:1 › successful login ────────────────────────────────────────
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m
