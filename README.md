@@ -26,3 +26,17 @@ Codegen болон Trace Viewer ашиглаж сурах.
 
 Ажлын орчны дэлгэрэнгүй мэдээлэл:
 [environment.txt](results/environment.txt)
+
+## Browser тохиргоо
+
+Анхны туршилтаар Chromium, Firefox, WebKit
+хөтчүүд дээр нийт 6 тест ажиллуулсан.
+Үүнээс 4 тест амжилттай, 2 тест амжилтгүй болсон.
+
+WebKit нь Arch Linux орчинд шаардлагатай
+системийн сангууд дутуу байснаас ажиллаагүй.
+
+Иймээс лабораторийн цаашдын тестүүдийг Chromium
+болон Firefox хөтөч дээр ажиллуулахаар болсон.
+
+Анхны үр дүн: [example-test.txt](results/example-test.txt)

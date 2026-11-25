@@ -1,0 +1,15 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test
+
+Running 4 tests using 4 workers
+
+[1/4] [firefox] › tests/example.spec.ts:10:1 › get started link
+[2/4] [chromium] › tests/example.spec.ts:3:1 › has title
+[3/4] [chromium] › tests/example.spec.ts:10:1 › get started link
+[4/4] [firefox] › tests/example.spec.ts:3:1 › has title
+  4 passed (3.7s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m
