@@ -167,3 +167,153 @@ Playwright Codegen ашиглан SauceDemo сайтын нэвтрэх,
 
 - [Codegen код](codegen/login-generated.ts)
 - [Кодын харьцуулалт](results/codegen-comparison.txt)
+
+## Trace Viewer болон зориудын алдааны туршилт
+
+Playwright-ийн --trace on тохиргоог ашиглан
+тестийн үйлдлүүдийн trace бичлэгийг үүсгэсэн.
+
+TC-01 тестийн toHaveURL assertion-ийг зориудаар
+/wrong-page.html URL шалгахаар өөрчилсөн.
+
+| Үзүүлэлт | Үр дүн |
+|---|---|
+| Browser | Chromium |
+| Assertion | toHaveURL |
+| Expected | /wrong-page.html |
+| Actual | /inventory.html |
+| Timeout | 5000 ms |
+| Алдаа гарсан мөр | mytest.spec.ts:30 |
+| Үр дүн | 1 failed |
+
+Систем зөв inventory хуудас руу шилжсэн боловч
+assertion-ийн хүлээгдэж буй утга буруу байсан
+тул тест амжилтгүй болсон.
+
+Туршилтын дараа assertion-ийг зөв утгаар
+сэргээж бүх тестийг дахин ажиллуулсан.
+
+Нотолгоо:
+
+- [Алдааны лог](results/intentional-failure.txt)
+- [Алдаатай trace](evidence/traces/TC-01-intentional-failure.zip)
+- [Алдааны зураг](evidence/intentional-failure.png)
+- [Эцсийн үр дүн](results/final-test.txt)
+
+## Locator сонголт
+
+Үндсэн тестүүдэд getByRole, getByPlaceholder,
+getByText болон CSS locator ашигласан.
+
+XPath нь DOM-ийн бүтцээс хэт хамааралтай
+бичигдсэн тохиолдолд HTML бүтэц өөрчлөгдөхөд
+эвдрэх эрсдэлтэй.
+
+Харин role, текст болон тогтвортой ID,
+data-test атрибут ашиглах нь тестийн кодыг
+унших, ойлгох, засварлахад хялбар болгодог.
+
+Logout элементийг getByRole('link') ашиглан
+олох боломжгүй байсан тул тогтвортой
+#logout_sidebar_link ID locator ашигласан.
+
+## Playwright ба Selenium-ийн харьцуулалт
+
+1. Playwright болон Selenium нь веб хөтчийн
+   үйлдлийг автоматжуулах нээлттэй эхийн хэрэгслүүд юм.
+2. Playwright нь элемент үйлдэл хийхэд бэлэн
+   болохыг автоматаар хүлээдэг auto-wait боломжтой.
+3. Selenium дээр тодорхой нөхцөл хүлээхэд
+   explicit wait ашиглах шаардлага гардаг.
+4. Playwright-ийн getByRole, getByText зэрэг
+   locator нь тестийн кодыг ойлгомжтой болгодог.
+5. Codegen ашиглан хэрэглэгчийн үйлдлээс
+   тестийн код хурдан үүсгэх боломжтойг
+   лабораторийн туршилтаар ажигласан.
+6. Trace Viewer нь тестийн үйлдлүүд,
+   assertion алдаа болон хуудасны төлөвийг
+   шинжлэх боломж олгодог.
+7. Playwright нь олон хөтөч дээр ижил тест
+   ажиллуулах тохиргоотой боловч Arch Linux
+   дээр WebKit-ийн хамаарлын асуудал гарсан.
+8. Selenium нь олон жилийн турш хөгжсөн,
+   өргөн хэрэглээтэй автоматжуулалтын хэрэгсэл
+   бол Playwright нь орчин үеийн веб тестэд
+   зориулсан нэгдсэн боломжуудтай.
+9. Энэ лабораторийн хүрээнд Selenium-ийг
+   бодитоор ажиллуулаагүй тул харьцуулалтыг
+   лабораторийн заавар болон Playwright дээр
+   хийсэн туршилтад үндэслэв.
+
+## Тест ажиллуулах заавар
+
+Төслийг татах:
+
+    git clone https://github.com/B232270013/lab1-csa313.git
+    cd lab1-csa313
+
+Хамааралтай сангуудыг суулгах:
+
+    npm ci
+
+Browser суулгах:
+
+    npx playwright install chromium firefox
+
+Бүх тест ажиллуулах:
+
+    npx playwright test
+
+Зөвхөн SauceDemo тестүүд ажиллуулах:
+
+    npx playwright test tests/mytest.spec.ts
+
+HTML report харах:
+
+    npx playwright show-report
+
+Trace Viewer нээх:
+
+    npx playwright show-trace evidence/traces/TC-01-intentional-failure.zip
+
+## Эцсийн тестийн үр дүн
+
+| Тест | Chromium | Firefox |
+|---|---|---|
+| Has title | Passed | Passed |
+| Get started link | Passed | Passed |
+| Successful login | Passed | Passed |
+| Invalid login | Passed | Passed |
+| Add product to cart | Passed | Passed |
+
+- Үндсэн функционал тест: 6 passed.
+- Жишээ тест: 4 passed.
+- Нийт ажиллуулсан тест: 10.
+- Амжилттай: 10.
+- Амжилтгүй: 0.
+- Нийт хугацаа: 6.6 секунд.
+- Workers: 8.
+
+Нотолгоо:
+
+- [Эцсийн тестийн лог](results/final-test.txt)
+- [HTML report](playwright-report/index.html)
+- [Эцсийн screenshot](evidence/final-test.png)
+
+## Дүгнэлт
+
+Энэхүү лабораторийн ажлаар Playwright ашиглан
+веб системийн функционал тестийг автоматжуулсан.
+Амжилттай нэвтрэх, амжилтгүй нэвтрэх болон
+бараа сагслах гурван үндсэн тест боловсруулсан.
+Тестүүдэд locator, assertion болон test.step
+ашиглан үйлдэл, хүлээгдэж буй үр дүнг шалгасан.
+Codegen-ээр үүсгэсэн кодыг үндсэн тестийн
+кодтой харьцуулж, давхардсан үйлдэл болон
+assertion дутуу байгааг тодорхойлсон.
+Зориудаар буруу assertion ашиглан алдаатай
+trace бичлэг үүсгэсэн.
+Тестийн кодыг сэргээсний дараа Chromium болон
+Firefox дээр нийт 10 тест амжилттай ажилласан.
+Git ашиглан ажлын үе шат бүрийг commit хийж,
+GitHub репозиторт эх код болон нотолгоог хадгалсан.
