@@ -1,0 +1,21 @@
+{
+  "name": "lab1-csa313",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B232270013/lab1-csa313.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/B232270013/lab1-csa313/issues"
+  },
+  "homepage": "https://github.com/B232270013/lab1-csa313#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.10"
+  }
+}

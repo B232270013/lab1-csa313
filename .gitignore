@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Playwright temporary results
+test-results/
+playwright/.cache/
+playwright/.auth/
+blob-report/
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Environment variables
+.env
+.env.*
