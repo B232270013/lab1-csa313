@@ -1,0 +1,21 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test --trace on
+
+Running 10 tests using 8 workers
+
+[1/10] [firefox] › tests/example.spec.ts:3:1 › has title
+[2/10] [chromium] › tests/example.spec.ts:3:1 › has title
+[3/10] [chromium] › tests/mytest.spec.ts:109:1 › add product to cart
+[4/10] [chromium] › tests/example.spec.ts:10:1 › get started link
+[5/10] [chromium] › tests/mytest.spec.ts:4:1 › successful login
+[6/10] [firefox] › tests/mytest.spec.ts:4:1 › successful login
+[7/10] [firefox] › tests/example.spec.ts:10:1 › get started link
+[8/10] [chromium] › tests/mytest.spec.ts:65:1 › invalid login
+[9/10] [firefox] › tests/mytest.spec.ts:65:1 › invalid login
+[10/10] [firefox] › tests/mytest.spec.ts:109:1 › add product to cart
+  10 passed (6.6s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m

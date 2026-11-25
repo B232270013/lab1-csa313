@@ -1,0 +1,48 @@
+npm notice run lab1-csa313@1.0.0 npx
+npm notice run 'playwright' test tests/mytest.spec.ts --grep successful login --project=chromium --trace on
+
+Running 1 test using 1 worker
+
+[1/1] [chromium] › tests/mytest.spec.ts:4:1 › successful login
+  1) [chromium] › tests/mytest.spec.ts:4:1 › successful login › Нэвтрэлт амжилттай эсэхийг шалгах ──
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/wrong-page\.html$/
+    Received string:  "https://www.saucedemo.com/inventory.html"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "https://www.saucedemo.com/inventory.html"
+
+
+      28 |     await test.step('Нэвтрэлт амжилттай эсэхийг шалгах', async () => {
+      29 |         await expect(page)
+    > 30 |             .toHaveURL(/\/wrong-page\.html$/);
+         |              ^
+      31 |
+      32 |         await expect(
+      33 |             page.getByText('Products', { exact: true })
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:30:14
+        at /home/sha/Documents/F.CSA313/lab1/lab1-csa313/tests/mytest.spec.ts:28:5
+
+    Error Context: test-results/mytest-successful-login-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/mytest-successful-login-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/mytest-successful-login-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [chromium] › tests/mytest.spec.ts:4:1 › successful login ───────────────────────────────────────
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m
