@@ -105,3 +105,108 @@ test('invalid login', async ({ page }) => {
         ).toBeVisible();
     });
 });
+// TC-03: Бараа сагслах, хасах болон системээс гарах
+test('add product to cart', async ({ page }) => {
+
+    await test.step('Системд нэвтрэх', async () => {
+        await page.goto('https://www.saucedemo.com/');
+
+        await page.getByPlaceholder('Username')
+            .fill('standard_user');
+
+        await page.getByPlaceholder('Password')
+            .fill('secret_sauce');
+
+        await page.getByRole('button', {
+            name: 'Login'
+        }).click();
+
+        await expect(page)
+            .toHaveURL(/\/inventory\.html$/);
+    });
+
+    await test.step('Бараа сонгох', async () => {
+        const product = page.locator('.inventory_item')
+            .filter({
+                has: page.getByText(
+                    'Sauce Labs Backpack',
+                    { exact: true }
+                )
+            });
+
+        await expect(product).toBeVisible();
+
+        await product.getByRole('button', {
+            name: 'Add to cart',
+            exact: true
+        }).click();
+    });
+
+    await test.step('Сагсны тоог шалгах', async () => {
+        await expect(
+            page.locator('.shopping_cart_badge')
+        ).toHaveText('1');
+    });
+
+    await test.step('Сагсны хуудас нээх', async () => {
+        await page.locator('.shopping_cart_link')
+            .click();
+
+        await expect(page)
+            .toHaveURL(/\/cart\.html$/);
+
+        await expect(
+            page.getByText('Your Cart', { exact: true })
+        ).toBeVisible();
+    });
+
+    await test.step('Сагсанд зөв бараа байгааг шалгах', async () => {
+        const cartItem = page.locator('.cart_item');
+
+        await expect(cartItem).toHaveCount(1);
+
+        await expect(
+            cartItem.getByText('Sauce Labs Backpack', {
+                exact: true
+            })
+        ).toBeVisible();
+
+        await expect(
+            cartItem.locator('.cart_quantity')
+        ).toHaveText('1');
+    });
+
+    await test.step('Барааг сагснаас хасах', async () => {
+        await page.getByRole('button', {
+            name: 'Remove',
+            exact: true
+        }).click();
+
+        await expect(
+            page.locator('.cart_item')
+        ).toHaveCount(0);
+
+        await expect(
+            page.locator('.shopping_cart_badge')
+        ).toHaveCount(0);
+    });
+
+    await test.step('Системээс гарах', async () => {
+        await page.locator('#react-burger-menu-btn')
+            .click();
+
+        const logout = page.locator(
+            '#logout_sidebar_link'
+        );
+
+        await expect(logout).toBeVisible();
+        await logout.click();
+
+        await expect(page)
+            .toHaveURL('https://www.saucedemo.com/');
+
+        await expect(
+            page.getByRole('button', { name: 'Login' })
+        ).toBeVisible();
+    });
+});

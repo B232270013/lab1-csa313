@@ -88,3 +88,39 @@ CSS ID locator ашиглан олж, асуудлыг зассан.
 - [Chromium trace](evidence/traces/TC-01-chromium.zip)
 - [Firefox trace](evidence/traces/TC-01-firefox.zip)
 - [HTML report screenshot](evidence/07-login-report.png)
+
+## TC-02 — Амжилтгүй нэвтрэх
+
+Буруу нууц үгээр нэвтрэх оролдлого хийж,
+алдааны мессеж болон нэвтрэх эрх олгогдоогүй
+байдлыг assertion ашиглан шалгасан.
+
+Үр дүн: 2 passed, 0 failed.
+
+Нотолгоо: [TC-02](results/TC-02-invalid-login.txt)
+
+## TC-03 — Бараа сагслах
+
+Sauce Labs Backpack барааг сагсанд нэмэх,
+сагсны тоо, барааны нэр, тоо ширхгийг шалгах,
+барааг сагснаас хасах болон logout үйлдлийг
+автоматжуулсан.
+
+Үр дүн: 2 passed, 0 failed.
+
+Нотолгоо: [TC-03](results/TC-03-add-to-cart.txt)
+
+## Функционал тестийн нэгдсэн үр дүн
+
+| Test case | Chromium | Firefox |
+|---|---|---|
+| TC-01 Successful login | Passed | Passed |
+| TC-02 Invalid login | Passed | Passed |
+| TC-03 Add product to cart | Passed | Passed |
+
+Нийт: 6 passed, 0 failed.
+
+Тест бүр тусдаа browser context ашиглан
+бие даан ажиллахаар бичигдсэн.
+
+Нотолгоо: [Нэгдсэн үр дүн](results/all-functional-tests.txt)
